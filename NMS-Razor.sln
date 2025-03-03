@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NMS-Razor", "NMS-Razor\NMS-Razor.csproj", "{F12DFE34-B4D7-40CC-8879-ACF75D237359}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{F9F6CAE4-8A73-42EA-A6EE-03AFA390898D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{AA6CFC22-7F8E-4EC3-8312-360EC741B11C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F12DFE34-B4D7-40CC-8879-ACF75D237359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F12DFE34-B4D7-40CC-8879-ACF75D237359}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F12DFE34-B4D7-40CC-8879-ACF75D237359}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F12DFE34-B4D7-40CC-8879-ACF75D237359}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9F6CAE4-8A73-42EA-A6EE-03AFA390898D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9F6CAE4-8A73-42EA-A6EE-03AFA390898D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9F6CAE4-8A73-42EA-A6EE-03AFA390898D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9F6CAE4-8A73-42EA-A6EE-03AFA390898D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA6CFC22-7F8E-4EC3-8312-360EC741B11C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA6CFC22-7F8E-4EC3-8312-360EC741B11C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA6CFC22-7F8E-4EC3-8312-360EC741B11C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA6CFC22-7F8E-4EC3-8312-360EC741B11C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
