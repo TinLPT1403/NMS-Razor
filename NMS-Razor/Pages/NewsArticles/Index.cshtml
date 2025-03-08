@@ -185,7 +185,7 @@
 
 
     <p class="create-new-button">
-        <a asp-action="Create" class="btn btn-primary">Create New Article</a>
+        <a asp-page="/NewsArticles/Create" class="btn btn-primary">Create New Article</a>
     </p>
 
     <hr/>
@@ -256,5 +256,23 @@
             }
         }
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+<script>
+    // Create a connection to the SignalR hub
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("https://localhost:7041/newsHub")
+        .build();
+
+    // Listen for the "ReceiveNewsUpdate" event from the server
+    connection.on("ReceiveNewsUpdate", function (articleId) {
+        // Reload the page to get fresh data
+        location.reload();
+    });
+
+    // Start the SignalR connection
+    connection.start().catch(function (err) {
+        return console.error(err.toString());
+    });
+</script>
 </body>
 </html>

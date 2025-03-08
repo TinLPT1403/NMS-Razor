@@ -3,6 +3,7 @@ using DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Threading.Tasks;
 
 namespace NMS_Razor.Pages.Lecturer
 {
@@ -10,13 +11,14 @@ namespace NMS_Razor.Pages.Lecturer
     public class DetailsModel : PageModel
     {
         private readonly INewsArticleService _newsArticleService;
+
         public DetailsModel(INewsArticleService newsArticleService)
         {
             _newsArticleService = newsArticleService;
         }
 
         [BindProperty(SupportsGet = true)]
-        public required string Id {  get; set; }
+        public required string Id { get; set; }
 
         [BindProperty]
         public required NewsArticle Article { get; set; }
@@ -25,6 +27,7 @@ namespace NMS_Razor.Pages.Lecturer
         {
             Article = await _newsArticleService.GetNewsArticleByIdAsync(Id);
             if (Article == null) return NotFound();
+
             return Page();
         }
     }

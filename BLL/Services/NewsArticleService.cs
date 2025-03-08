@@ -1,17 +1,12 @@
-﻿ using BLL.DTOs;
+﻿using BLL.DTOs;
 using BLL.Interfaces;
-using BLL.Utils;
 using DAL.Entities;
-using DAL.Interfaces;
 using DAL.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Net.Http;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BLL.Services
@@ -19,12 +14,14 @@ namespace BLL.Services
     public class NewsArticleService : INewsArticleService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IRealTimeNotifier _notifier;
 
-        public NewsArticleService(IUnitOfWork unitOfWork)
+        public NewsArticleService(IUnitOfWork unitOfWork, IRealTimeNotifier notifier)
         {
             _unitOfWork = unitOfWork;
-
+            _notifier = notifier;
         }
+
         public async Task CreateNewsArticleAsync(NewsArticleCreateDTO dto, HttpContext httpContext)
         {
             var userIdClaim = httpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -79,6 +76,9 @@ namespace BLL.Services
 
             // Save changes
             await _unitOfWork.SaveChangesAsync();
+
+            // Notify clients about the new article
+            await _notifier.NotifyAsync("News article created");
         }
 
         public async Task DeactiveNewsArticleAsync(string id)
@@ -89,18 +89,19 @@ namespace BLL.Services
                 article.NewsStatus = false;
                 await _unitOfWork.NewsArticles.UpdateAsync(article);
                 await _unitOfWork.SaveChangesAsync();
+
+                // Notify clients about the deactivation
+                await _notifier.NotifyAsync("News article deactivated");
             }
         }
 
         public async Task<IEnumerable<NewsArticle>> GetActiveNewsArticlesAsync() => await _unitOfWork.NewsArticles.GetActiveNewsArticlesAsync();
-
 
         public async Task<NewsArticle> GetNewsArticleByIdAsync(string id) => await _unitOfWork.NewsArticles.GetNewsArticleByIdAsync(id);
 
         public async Task<IEnumerable<NewsArticle>> GetNewsArticlesByUserIdAsync(int userId)
         {
             return await _unitOfWork.NewsArticles.GetActiveNewsArticlesByUserIdAsync(userId);
-
         }
 
         public async Task<IEnumerable<NewsArticle>> GetAllNewsArticlesAsync()
@@ -202,10 +203,13 @@ namespace BLL.Services
 
             // Save the changes to the database
             await _unitOfWork.SaveChangesAsync();
+
+            // Notify clients about the update
+            await _notifier.NotifyAsync("News article updated");
         }
+
         public async Task<IEnumerable<NewsArticle>> GenerateReport(DateTime startDate, DateTime endDate)
         {
-
             return (IEnumerable<NewsArticle>)await _unitOfWork.NewsArticles.GetByConditionAsync(a => a.ModifiedDate >= startDate && a.ModifiedDate <= endDate);
         }
 
