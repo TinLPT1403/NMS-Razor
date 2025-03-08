@@ -36,12 +36,27 @@ namespace NMS_Razor.Pages.NewsArticles
         public required IEnumerable<Tag> NewsTags { get; set; }
         [BindProperty]
         public required IEnumerable<Tag> Tags { get; set; }
+        [BindProperty]
+        public required List<int>? TagIdList { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
             var article = await _newsArticleService.GetNewsArticleByIdAsync(Id);
             if (article == null) return NotFound();
-            _mapper.Map(article, Article);
+
+            var model = new NewsArticleUpdateDTO
+            {
+                NewsTitle = article.NewsTitle,
+                Headline = article.Headline,
+                NewsContent = article.NewsContent,
+                NewsSource = article.NewsSource,
+                NewsStatus = article.NewsStatus,
+                CategoryId = article.CategoryId,
+                NewsTagIds = _newsTagService.GetTagsOfArticleAsync(Id).Result.Select(t => t.TagId).ToList()
+            };
+
+            Article = model;
+
             Categories = await _categoryService.GetActiveCategoriesAsync();
             NewsTags = await _newsTagService.GetTagsOfArticleAsync(Id);
             Tags = await _tagService.GetAllTagsAsync();
@@ -50,14 +65,19 @@ namespace NMS_Razor.Pages.NewsArticles
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var dto = _mapper.Map<NewsArticleUpdateDTO>(Article);
+            dto.NewsTagIds = TagIdList;           
+
             if (ModelState.IsValid)
             {
-                await _newsArticleService.UpdateNewsArticleAsync(Id, Article, HttpContext);
+                await _newsArticleService.UpdateNewsArticleAsync(Id, dto, HttpContext);
                 TempData["Message"] = "Article updated successfully.";
                 return RedirectToPage("/NewsArticles/Index");
             }
             TempData["Error"] = "Failed to update article.";
             Categories = await _categoryService.GetActiveCategoriesAsync();
+            NewsTags = await _newsTagService.GetTagsOfArticleAsync(Id);
+            Tags = await _tagService.GetAllTagsAsync();
             return Page();
         }
     }

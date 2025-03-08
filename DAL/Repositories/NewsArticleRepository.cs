@@ -101,7 +101,13 @@ namespace DAL.Repositories
             {
                 query = query.Where(a => a.NewsTags.Any(t => t.TagId == tagId));
             }
-            return await query.ToListAsync();
+            return await query
+                .Include(article => article.Category)
+                .Include(article => article.CreatedBy) 
+                .Include(article => article.UpdatedBy)  
+                .Include(article => article.NewsTags)
+                .ThenInclude(newstags => newstags.Tag)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<NewsArticle>> GetNewsArticlesReportAsync(DateTime startDate, DateTime endDate)

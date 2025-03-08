@@ -233,8 +233,15 @@
                         @contentPreview
                     </div>
                     <div class="news-meta">
-                        Published Date: @Html.DisplayFor(modelItem => item.ModifiedDate) | Source: @Html.DisplayFor(modelItem => item.NewsSource) | Category: @Html.DisplayFor(modelItem => item.Category.CategoryName)
-                        | Author : @Html.DisplayFor(modelItem => item.CreatedBy.AccountName) | Modified by :  @Html.DisplayFor(modelItem => item.UpdatedBy.AccountName)
+                        @{
+                            var modifiedDateDisplay = item.ModifiedDate?.ToString() ?? "N/A";
+                            var modifiedByDisplay = item.UpdatedBy?.AccountName.ToString() ?? "N/A";  // Safely access UpdatedBy and provide fallback
+                        }
+                        Published Date: @Html.DisplayFor(modelItem => modifiedDateDisplay)
+                        | Source: @Html.DisplayFor(modelItem => item.NewsSource)
+                        | Category: @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                        | Author : @Html.DisplayFor(modelItem => item.CreatedBy.AccountName)
+                        | Modified by : @Html.DisplayFor(modelItem => modifiedByDisplay)
                     </div>
                     @foreach (var a in item.NewsTags)
                     {

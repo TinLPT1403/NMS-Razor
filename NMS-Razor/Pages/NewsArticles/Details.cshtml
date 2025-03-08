@@ -128,7 +128,7 @@
             </tr>
             <tr>
                 <td>Modified by:</td>
-                <td>@Model.Article.UpdatedBy!.AccountName</td>
+                <td>@(Model.Article.UpdatedBy?.AccountName ?? "N/A")</td>
             </tr>
             <tr>
                 <td>Modified Date:</td>
@@ -141,17 +141,25 @@
             <tr>
                 <td>Tag:</td>
                 <td>
-                    @foreach (var tag in Model.Tags)
+                    @if (Model.Tags != null && Model.Tags.Any())
                     {
-                        <button type="button" class="btn btn-outline-primary">@tag.TagName</button>
+                        @foreach (var tag in Model.Tags)
+                        {
+                            <button type="button" class="btn btn-outline-primary">@tag.TagName</button>
+                        }
+                    }
+                    else
+                    {
+                        <span>No tags available</span>
                     }
                 </td>
             </tr>
+
         </table>
     </p>
 
     <div class="action-buttons">
-        <a asp-page="/NewsArticle/Edit" asp-route-id="@Model?.Article.NewsArticleId" class="btn btn-warning">Edit</a>
+        <a asp-page="/NewsArticles/Edit" asp-route-id="@Model.Article.NewsArticleId" class="btn btn-warning">Edit</a>
         <a asp-page="/NewsArticles/Index" class="btn btn-secondary">Back to News List</a> @* Adjusted Back to List link *@
     </div>
 </div>

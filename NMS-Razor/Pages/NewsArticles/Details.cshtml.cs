@@ -26,6 +26,7 @@ namespace NMS_Razor.Pages.NewsArticles
 
         public async Task<IActionResult> OnGetAsync()
         {
+            // In Razor Page (OnGetAsync or OnPostAsync)
             Article = await _newsArticleService.GetNewsArticleByIdAsync(Id);
             if (Article == null) return NotFound();
             Tags = await _newsTagService.GetTagsOfArticleAsync(Id);

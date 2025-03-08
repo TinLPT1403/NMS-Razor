@@ -67,14 +67,9 @@ namespace BLL.Services
             var article = await _unitOfWork.NewsArticles.GetByIdAsync(newsArticleId);
             if (article == null)
             {
-                throw new KeyNotFoundException($"Article with ID {newsArticleId} not found");
+                Console.WriteLine($"Article with ID {newsArticleId} not found");
             }
 
-            var hasTags = await _unitOfWork.NewsTags.AnyAsync(nt => nt.NewsArticleId == newsArticleId);
-            if (!hasTags)
-            {
-                throw new KeyNotFoundException($"This article has no tags");
-            }
             var tags = await _unitOfWork.NewsTags.GetTagsFromArticleAsync(newsArticleId);
             return tags;
         }

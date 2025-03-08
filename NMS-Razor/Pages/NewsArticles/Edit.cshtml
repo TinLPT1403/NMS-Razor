@@ -168,10 +168,11 @@
 
         <div class="form-group">
             <label asp-for="Article.NewsTagIds" class="control-label">Tags</label> <br />
-            @foreach (var tag in ViewBag.Tags)
+            @foreach (var tag in Model.Tags)
             {
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="Article.NewsTagIds" value="@tag.TagId" id="tag-@tag.TagId"
+                    <input class="form-check-input" type="checkbox" name="TagIdList" 
+                    value="@tag.TagId" id="tag-@tag.TagId"
                     @(Model.NewsTags.Any(t => t.TagId == tag.TagId) ? "checked" : "") />
                     <label class="form-check-label" for="tag-@tag.TagId">@tag.TagName</label>
                 </div>
