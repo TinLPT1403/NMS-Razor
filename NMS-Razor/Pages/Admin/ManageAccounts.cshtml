@@ -11,12 +11,14 @@
 
     /* Theme Variables - Consistent with other admin pages */
     :root {
-        --primary-color: #0056b3; /* Updated primary color */
+        --primary-color: #0056b3;
+        /* Updated primary color */
         --secondary-color: #6c757d;
         --background-color: #f8f9fa;
         --text-color: #343a40;
         --accent-color: #ffc107;
-        --account-card-background: #ffffff; /* Background for account cards */
+        --account-card-background: #ffffff;
+        /* Background for account cards */
         --account-card-border: #dee2e6;
         --account-card-border-radius: 8px;
         --account-card-padding: 20px;
@@ -40,36 +42,44 @@
 
     .accounts-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Responsive grid for accounts */
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        /* Responsive grid for accounts */
         gap: 25px;
         margin-top: 20px;
     }
 
-    .account-card { /* Renamed from account-item to account-card for clarity */
+    .account-card {
+        /* Renamed from account-item to account-card for clarity */
         background-color: var(--account-card-background);
         border: 1px solid var(--account-card-border);
         border-radius: var(--account-card-border-radius);
         padding: var(--account-card-padding);
         margin-bottom: var(--account-card-margin-bottom);
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07); /* Subtle shadow */
-        transition: transform 0.2s ease-in-out; /* Hover effect */
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
+        /* Subtle shadow */
+        transition: transform 0.2s ease-in-out;
+        /* Hover effect */
     }
 
-        .account-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Stronger shadow on hover */
-        }
+    .account-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        /* Stronger shadow on hover */
+    }
 
-    .account-name { /* Style for Account Name */
+    .account-name {
+        /* Style for Account Name */
         margin-top: 0;
         margin-bottom: 10px;
         color: var(--primary-color);
         font-size: 1.8em;
         font-weight: bold;
-        word-wrap: break-word; /* Handle long names */
+        word-wrap: break-word;
+        /* Handle long names */
     }
 
-    .account-role { /* Style for Account Role */
+    .account-role {
+        /* Style for Account Role */
         margin-top: 0;
         margin-bottom: 15px;
         color: var(--secondary-color);
@@ -77,7 +87,8 @@
         font-style: italic;
     }
 
-    .account-meta { /* Style for Email and Password */
+    .account-meta {
+        /* Style for Email and Password */
         font-size: 0.95em;
         color: var(--account-meta-color);
         margin-bottom: 10px;
@@ -96,26 +107,31 @@
     }
 
 
-    .account-actions { /* Actions for each account */
+    .account-actions {
+        /* Actions for each account */
         text-align: right;
         margin-top: 25px;
     }
 
-        .account-actions a {
-            color: var(--account-action-color);
-            text-decoration: none;
-            margin-left: 8px;
-            padding: 10px 15px;
-            border: none; /* Removed border for colorless buttons */
-            border-radius: 5px;
-            transition: background-color 0.2s ease, color 0.2s ease;
-            display: inline-block; /* Ensure actions are inline */
-        }
+    .account-actions a {
+        color: var(--account-action-color);
+        text-decoration: none;
+        margin-left: 8px;
+        padding: 10px 15px;
+        border: none;
+        /* Removed border for colorless buttons */
+        border-radius: 5px;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        display: inline-block;
+        /* Ensure actions are inline */
+    }
 
-            .account-actions a:hover {
-                background-color: transparent; /* Make hover background transparent for colorless buttons */
-                color: var(--account-action-color); /* Keep text color on hover */
-            }
+    .account-actions a:hover {
+        background-color: transparent;
+        /* Make hover background transparent for colorless buttons */
+        color: var(--account-action-color);
+        /* Keep text color on hover */
+    }
 
 
     .create-new-account-button {
@@ -124,21 +140,20 @@
         margin-bottom: 30px;
     }
 
-        .create-new-account-button a {
-            display: inline-block;
-            padding: 12px 25px;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            transition: background-color 0.2s ease;
-        }
+    .create-new-account-button a {
+        display: inline-block;
+        padding: 12px 25px;
+        background-color: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 1.1rem;
+        transition: background-color 0.2s ease;
+    }
 
-            .create-new-account-button a:hover {
-                background-color: darken(var(--primary-color), 10%);
-            }
-
+    .create-new-account-button a:hover {
+        background-color: darken(var(--primary-color), 10%);
+    }
 </style>
 
 @section Scripts {
@@ -172,7 +187,7 @@
 
 <p class="create-new-button">
 <p class="create-new-account-button">
-    <a asp-action="CreateAccount" class="btn btn-primary">Create New Account</a>
+    <a asp-page="/Admin/CreateAccount" class="btn btn-primary">Create New Account</a>
 </p>
 
 <div class="search-bar">
@@ -185,7 +200,7 @@
         </div>
     </form>
 </div>
-<br/>
+<br />
 
 <div class="accounts-container">
     @foreach (var item in Model.AccountList)

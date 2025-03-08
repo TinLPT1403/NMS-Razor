@@ -8,7 +8,6 @@
 
 <style>
     /* Styling for News Details Page - Reader-Friendly Focus */
-
     :root {
         --primary-color: #0056b3;
         --secondary-color: #6c757d;
@@ -18,32 +17,31 @@
         --article-background: #ffffff;
         --article-border: #dee2e6;
         --meta-color: #6c757d;
-
-        --details-page-max-width: 800px; /* Max width for content area */
+        --details-page-max-width: 800px;
         --details-page-padding: 20px;
-        --details-content-font-size: 1.1rem; /* Larger font for content */
-        --details-content-line-height: 1.7; /* Increased line height for readability */
+        --details-content-font-size: 1.1rem;
+        --details-content-line-height: 1.7;
     }
 
     body {
         background-color: var(--background-color);
         color: var(--text-color);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Reader-friendly font */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         line-height: 1.6;
     }
 
     .details-container {
         max-width: var(--details-page-max-width);
-        margin: 20px auto; /* Center the content container */
+        margin: 20px auto;
         padding: var(--details-page-padding);
         background-color: var(--article-background);
         border: 1px solid var(--article-border);
         border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.05); /* Subtle shadow */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
     }
 
     .news-title {
-        font-size: 2.5em; /* Larger and more prominent title */
+        font-size: 2.5em;
         color: var(--primary-color);
         margin-bottom: 10px;
         line-height: 1.2;
@@ -60,15 +58,15 @@
         font-size: 0.95em;
         color: var(--meta-color);
         margin-bottom: 25px;
-        border-bottom: 1px solid var(--article-border); /* Separator line */
+        border-bottom: 1px solid var(--article-border);
         padding-bottom: 10px;
     }
 
     .news-content {
         font-size: var(--details-content-font-size);
         line-height: var(--details-content-line-height);
-        margin-bottom: 30px; /* More space after content */
-        white-space: pre-line; /* Preserve line breaks from NewsContent if any */
+        margin-bottom: 30px;
+        white-space: pre-line;
     }
 
     .action-buttons {
@@ -76,12 +74,10 @@
         text-align: right;
     }
 
-    .action-buttons a, .action-buttons button {
+    .action-buttons a,
+    .action-buttons button {
         margin-left: 10px;
     }
-
-
-
 </style>
 
 <div class="details-container">
@@ -94,14 +90,17 @@
     </h2>
 
     <p class="meta-info">
-        Published on: @Model.Article.CreatedDate.ToString() | Category: @Model.Article.Category?.CategoryDescription | Source: @Html.DisplayFor(model => model.Article.NewsSource) | Author: @Html.DisplayFor(model => model.Article.CreatedBy.AccountName)
+        Published on: @Model.Article.CreatedDate.ToString() | Category: @Model.Article.Category?.CategoryDescription |
+        Source: @Html.DisplayFor(model => model.Article.NewsSource) | Author: @Html.DisplayFor(model =>
+        model.Article.CreatedBy.AccountName)
     </p>
 
     <div class="news-content">
-        @Html.Raw(Model.Article.NewsContent)  @* Render HTML content if needed, otherwise use Html.DisplayTextFor *@
+        @Html.Raw(Model.Article.NewsContent)
     </div>
 
     <div class="action-buttons">
-        <a asp-page="/Lecturer/Index" class="btn btn-secondary">Back to News List</a> @* Adjusted Back to List link *@
+        <a asp-page="/Lecturer/Index" class="btn btn-secondary">Back to News List</a>
     </div>
 </div>
+

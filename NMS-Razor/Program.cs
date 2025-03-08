@@ -8,6 +8,8 @@ using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using BLL.Utils;
+using NMS_Razor.Hubs;
+using NMS_Razor.Services;
 
 namespace NewsManagementSystem
 {
@@ -30,6 +32,7 @@ namespace NewsManagementSystem
             builder.Services.AddDbContext<NewsContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddSignalR();
             // Initialize TokenService with configuration
             TokenService.Initialize(builder.Configuration);
 
@@ -78,6 +81,7 @@ namespace NewsManagementSystem
             builder.Services.AddScoped<ITagService, TagService>();
             builder.Services.AddScoped<PasswordUtils>();
             builder.Services.AddHttpContextAccessor();
+            builder.Services.AddScoped<IRealTimeNotifier, RealTimeNotifier>(); // Register RealTimeNotifier
 
             // Add session services
             builder.Services.AddSession(options =>
@@ -102,6 +106,11 @@ namespace NewsManagementSystem
             app.UseRouting();       // Then use routing
             app.UseAuthentication(); // Then authentication
             app.UseAuthorization();  // Then authorization
+
+            _ = app.UseEndpoints(endpoints =>
+            {
+                _ = endpoints.MapHub<NewsHub>("/newsHub");
+            });
 
             // Middleware to add JWT token to request header
             app.Use(async (context, next) =>
