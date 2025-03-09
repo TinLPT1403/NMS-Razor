@@ -24,6 +24,8 @@ namespace NMS_Razor.Pages.Admin
         public required IEnumerable<SystemAccount> AccountList {  get; set; }
         [BindProperty]
         public required AccountCreateAdminDTO Account { get; set; }
+        [BindProperty]
+        public required AccountUpdateAdminDTO AccountUpdate { get; set; }
         public async Task<IActionResult> OnGetAsync()
         {
             AccountList = await _accountService.GetAllAccountsForManageAsync();
@@ -44,5 +46,22 @@ namespace NMS_Razor.Pages.Admin
             AccountList = await _accountService.GetAllAccountsForManageAsync();
             return RedirectToPage();
         }
+
+        public async Task<IActionResult> OnPostEditAccountAsync(int AccountId, [Bind("AccountName,AccountEmail,AccountRole,Password")] AccountUpdateAdminDTO account)
+        {
+            Console.WriteLine(AccountId);
+            if (ModelState.IsValid)
+            {
+
+                await _accountService.UpdateAccountAsync(AccountId,AccountUpdate);
+             TempData["Message"] = "Account updated successfully.";
+                return RedirectToPage();
+             }
+            TempData["Error"] = "Failed to update account.";
+            AccountList = await _accountService.GetAllAccountsForManageAsync();
+            
+            return RedirectToPage();
+        }   
+
     }
 }

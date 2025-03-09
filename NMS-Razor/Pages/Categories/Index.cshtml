@@ -204,7 +204,83 @@
         </div>
     </div>
 </div>
+<!-- Edit Category Modal -->
+<div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="editCategoryModalLabel">Edit Category</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="edit-category-form-container">
+                    <h4>Edit Category Details</h4>
+                    <hr />
 
+                    <form method="post" asp-page-handler="EditCategory">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <!-- Hidden field for CategoryId -->
+                        <input type="hidden" id="editCategoryId" name="CategoryId" />
+
+                        <div class="form-group">
+                            <label for="editCategoryName" class="control-label">Category Name</label>
+                            <input id="editCategoryName" name="CategoryName" class="form-control" />
+                            <span asp-validation-for="Category.CategoryName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editCategoryDescription" class="control-label">Category Description</label>
+                            <input id="editCategoryDescription" name="CategoryDescription" class="form-control" />
+                            <span asp-validation-for="Category.CategoryDescription" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editIsActive" class="control-label">Is Active</label>
+                            <select id="editIsActive" name="IsActive" class="form-control">
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                            <span asp-validation-for="Category.IsActive" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editParentCategoryId" class="control-label">Parent Category (Optional)</label>
+                            <select id="editParentCategoryId" name="ParentCategoryId" class="form-control">
+                                <option value="">-- No Parent Category --</option>
+                                @foreach (var item in Model.ParentCategoryList)
+                                {
+                                    <option value="@item.CategoryId">@item.CategoryName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" value="Save Changes" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        function openEditModal(categoryId, categoryName, categoryDescription, isActive, parentCategoryId) {
+            // Set the values in the edit modal form
+            document.getElementById('editCategoryId').value = categoryId;
+            document.getElementById('editCategoryName').value = categoryName;
+            document.getElementById('editCategoryDescription').value = categoryDescription;
+            document.getElementById('editIsActive').value = isActive;
+            document.getElementById('editParentCategoryId').value = parentCategoryId || "";
+
+            // Show the modal
+            var editModal = new bootstrap.Modal(document.getElementById('editCategoryModal'));
+            editModal.show();
+        }
+    </script>
+}
 @if (TempData["Error"] != null)
 {
     <div class="alert alert-danger">@TempData["Error"]</div>
@@ -238,7 +314,7 @@
 
 
             <div class="category-actions">
-                <a asp-page="/Categories/Edit" asp-route-id="@item.CategoryId">Edit</a>
+                <a href="#" onclick="openEditModal('@item.CategoryId', '@item.CategoryName', '@item.CategoryDescription', '@item.IsActive', '@item.ParentCategoryId')">Edit</a>
                 <a asp-page="/Categories/Details" asp-route-id="@item.CategoryId">Details</a>
                 <a asp-page="/Categories/Delete" asp-route-id="@item.CategoryId">Delete</a>
             </div>
