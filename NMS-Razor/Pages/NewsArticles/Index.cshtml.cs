@@ -1,4 +1,5 @@
-﻿using BLL.Interfaces;
+﻿using BLL.DTOs;
+using BLL.Interfaces;
 using DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,17 +22,31 @@ namespace NMS_Razor.Pages.NewsArticles
         }
 
         [BindProperty]
-        public required IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Category>? Categories { get; set; }
         [BindProperty]
-        public required int? CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         [BindProperty]
-        public required int? TagId { get; set; }
+        public  int? TagId { get; set; }
         [BindProperty]
-        public required IEnumerable<Tag> Tags { get; set; }
+        public  IEnumerable<Tag>? Tags { get; set; }
         [BindProperty]
-        public required IEnumerable<NewsArticle> Articles { get; set; }
+        public  IEnumerable<NewsArticle>? Articles { get; set; }
         [BindProperty]
-        public required string SearchTerm { get; set; }
+        public string? SearchTerm { get; set; }
+        [BindProperty]
+        public NewsArticleCreateDTO Article { get; set; }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (ModelState.IsValid)
+            {
+                await _newsArticleService.CreateNewsArticleAsync(Article, HttpContext);
+                TempData["Message"] = "Article created successfully.";
+                return RedirectToPage();
+            }
+            TempData["Error"] = "Failed to create article.";
+            return RedirectToPage();
+        }
 
         public async Task<IActionResult> OnGetAsync()
         {

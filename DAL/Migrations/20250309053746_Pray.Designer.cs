@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(NewsContext))]
-    [Migration("20250223120112_updateField")]
-    partial class updateField
+    [Migration("20250309053746_Pray")]
+    partial class Pray
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

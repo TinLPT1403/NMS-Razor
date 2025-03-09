@@ -140,8 +140,70 @@
 <h1>News Categories</h1>
 
 <p class="create-new-link">
-    <a asp-page="/Categories/Create">Create New Category</a>
+    <!-- Trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createCategoryModal">
+        Create New Category Popup
+    </button>
 </p>
+
+
+<!-- Modal -->
+<div class="modal fade" id="createCategoryModal" tabindex="-1" aria-labelledby="createCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="createCategoryModalLabel">Create New Category</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="create-category-form-container">
+                    <h4>Category Details</h4>
+                    <hr />
+
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Category.CategoryName" class="control-label">Category Name</label>
+                            <input asp-for="Category.CategoryName" class="form-control" />
+                            <span asp-validation-for="Category.CategoryName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Category.CategoryDescription" class="control-label">Category Description</label>
+                            <input asp-for="Category.CategoryDescription" class="form-control" />
+                            <span asp-validation-for="Category.CategoryDescription" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Category.IsActive" class="control-label">Is Active</label>
+                            <select asp-for="Category.IsActive" class="form-control">
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                            <span asp-validation-for="Category.IsActive" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Category.ParentCategoryId" class="control-label">Parent Category (Optional)</label>
+                            <select asp-for="Category.ParentCategoryId" class="form-control">
+                                <option value="">-- No Parent Category --</option>
+                                @foreach (var item in Model.ParentCategoryList)
+                                {
+                                    <option value="@item.CategoryId">@item.CategoryName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Create Category" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @if (TempData["Error"] != null)
 {
@@ -154,7 +216,7 @@
         <div class="category-card">
             <h2 class="category-title">
                 @Html.DisplayFor(modelItem => item.CategoryName)
-                @if (item.IsActive == true) //
+                @if (item.IsActive == true)
                 {
                     <span class="is-active-indicator is-active-true">Active</span>
                 }

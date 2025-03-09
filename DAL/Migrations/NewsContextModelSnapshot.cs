@@ -4,7 +4,6 @@ using DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,11 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(NewsContext))]
-    [Migration("20250219221619_init")]
-    partial class init
+    partial class NewsContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,9 +189,10 @@ namespace DAL.Migrations
 
                     b.Property<string>("AccountName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("AccountPassword")
+                    b.Property<string>("AccountPasswordHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -211,15 +209,15 @@ namespace DAL.Migrations
                             AccountId = -1,
                             AccountEmail = "admin@example.com",
                             AccountName = "Kha UwU",
-                            AccountPassword = "123456",
-                            AccountRole = 1
+                            AccountPasswordHash = "$2a$11$rwxlp.y4gjXvIW7IreN0LOpB9RIptTa/AnFIq0CM9GaEAaXcWKhDa",
+                            AccountRole = 3
                         },
                         new
                         {
                             AccountId = -2,
                             AccountEmail = "lecturer@example.com",
                             AccountName = "John",
-                            AccountPassword = "123456",
+                            AccountPasswordHash = "$2a$11$r4p3qfWEXlXdPjUwOpF0DOKoTga8YV7Q9TKKHfX7XNH8GaZV.Mp/m",
                             AccountRole = 2
                         },
                         new
@@ -227,8 +225,8 @@ namespace DAL.Migrations
                             AccountId = -3,
                             AccountEmail = "staff@example.com",
                             AccountName = "Larry",
-                            AccountPassword = "123456",
-                            AccountRole = 3
+                            AccountPasswordHash = "$2a$11$XhFt4joOsZAtT2U3JZnc4OF16cwVwZ/rA6VMB8wR9UizPs9rf5/we",
+                            AccountRole = 1
                         });
                 });
 

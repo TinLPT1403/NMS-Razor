@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BLL.DTOs;
 using BLL.Interfaces;
 using DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -21,11 +22,27 @@ namespace NMS_Razor.Pages.Admin
 
         [BindProperty]  
         public required IEnumerable<SystemAccount> AccountList {  get; set; }
-
+        [BindProperty]
+        public required AccountCreateAdminDTO Account { get; set; }
         public async Task<IActionResult> OnGetAsync()
         {
             AccountList = await _accountService.GetAllAccountsForManageAsync();
             return Page();
+        }
+
+        // Named handler for creating a new account (called via partial form post)
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (ModelState.IsValid)
+            {
+                await _accountService.CreateAccountAsync(Account);
+                TempData["Message"] = "Account created successfully.";
+                return RedirectToPage();
+            }
+            TempData["Error"] = "Validation failed!";
+            // Reload accounts in case we want to display them again
+            AccountList = await _accountService.GetAllAccountsForManageAsync();
+            return RedirectToPage();
         }
     }
 }

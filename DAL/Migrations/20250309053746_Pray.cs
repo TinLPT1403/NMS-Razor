@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Pray : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,10 +41,10 @@ namespace DAL.Migrations
                 {
                     AccountId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AccountName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     AccountEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AccountRole = table.Column<int>(type: "int", nullable: false),
-                    AccountPassword = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    AccountPasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -139,12 +139,12 @@ namespace DAL.Migrations
 
             migrationBuilder.InsertData(
                 table: "SystemAccounts",
-                columns: new[] { "AccountId", "AccountEmail", "AccountName", "AccountPassword", "AccountRole" },
+                columns: new[] { "AccountId", "AccountEmail", "AccountName", "AccountPasswordHash", "AccountRole" },
                 values: new object[,]
                 {
-                    { -3, "staff@example.com", "Larry", "123456", 3 },
-                    { -2, "lecturer@example.com", "John", "123456", 2 },
-                    { -1, "admin@example.com", "Kha UwU", "123456", 1 }
+                    { -3, "staff@example.com", "Larry", "$2a$11$XhFt4joOsZAtT2U3JZnc4OF16cwVwZ/rA6VMB8wR9UizPs9rf5/we", 1 },
+                    { -2, "lecturer@example.com", "John", "$2a$11$r4p3qfWEXlXdPjUwOpF0DOKoTga8YV7Q9TKKHfX7XNH8GaZV.Mp/m", 2 },
+                    { -1, "admin@example.com", "Kha UwU", "$2a$11$rwxlp.y4gjXvIW7IreN0LOpB9RIptTa/AnFIq0CM9GaEAaXcWKhDa", 3 }
                 });
 
             migrationBuilder.InsertData(

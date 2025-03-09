@@ -187,9 +187,65 @@
 
 <p class="create-new-button">
 <p class="create-new-account-button">
-    <a asp-page="/Admin/CreateAccount" class="btn btn-primary">Create New Account</a>
+    <!-- Trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAccountModal">
+        Create Account
+    </button>
 </p>
 
+<!-- Modal -->
+<div class="modal fade" id="createAccountModal" tabindex="-1" aria-labelledby="createAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createAccountModalLabel">Create New System Account</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="create-account-container">
+                    <h4>Fill in the details for the new account</h4>
+                    <hr />
+
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Account.AccountName" class="control-label">Account Name</label>
+                            <input asp-for="Account.AccountName" class="form-control" placeholder="Enter account name" />
+                            <span asp-validation-for="Account.AccountName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Account.AccountEmail" class="control-label">Email Address</label>
+                            <input asp-for="Account.AccountEmail" class="form-control" placeholder="Enter email address" />
+                            <span asp-validation-for="Account.AccountEmail" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Account.AccountRole" class="control-label">Account Role</label>
+                            <select asp-for="Account.AccountRole" class="form-control">
+                                <option value="1">Staff</option>
+                                <option value="2">Lecturer</option>
+                            </select>
+                            <span asp-validation-for="Account.AccountRole" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Account.Password" class="control-label">Password</label>
+                            <input asp-for="Account.Password" class="form-control" placeholder="Enter password" type="password" />
+                            <span asp-validation-for="Account.Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="modal-footer form-group">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" value="Create Account" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="search-bar">
     <form asp-action="SearchAccount" method="get">
         <div class="input-group">
