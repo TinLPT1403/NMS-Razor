@@ -79,7 +79,7 @@ namespace DAL.Repositories
                             .Include(article => article.UpdatedBy)  // Include UpdatedBy to access AccountId
                             .Include(article => article.NewsTags)
                             .ThenInclude(newstags => newstags.Tag)
-                            .Where(article => article.Category.IsActive == true)
+                            .Where(article => article.Category.IsActive == true && article.NewsStatus == true)
                             .ToListAsync();
         }
 

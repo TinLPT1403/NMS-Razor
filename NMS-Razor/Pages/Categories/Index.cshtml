@@ -137,6 +137,19 @@
 
 </style>
 
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+@if (TempData["NoResults"] != null)
+{
+    <div class="alert alert-warning">@TempData["NoResults"]</div>
+}
+
 <h1>News Categories</h1>
 
 <p class="create-new-link">
@@ -281,10 +294,9 @@
         }
     </script>
 }
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">@TempData["Error"]</div>
-}
+<body>
+
+
 
 <div class="categories-container">
     @foreach (var item in Model.Categories)
@@ -321,3 +333,5 @@
         </div>
     }
 </div>
+
+</body>

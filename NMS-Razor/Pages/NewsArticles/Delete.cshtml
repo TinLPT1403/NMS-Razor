@@ -145,7 +145,7 @@
     </div>
 
     <div class="delete-actions">
-        <form asp-action="Delete">
+        <form method="post">
             <input type="hidden" asp-for="Article.NewsArticleId" />
             <input type="submit" value="Confirm Delete" class="btn btn-danger" />
             <a asp-action="Index" class="btn btn-secondary">Cancel - Back to List</a>

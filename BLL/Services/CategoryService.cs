@@ -39,6 +39,7 @@ namespace BLL.Services
 
             existingCategory.CategoryName = category.CategoryName;
             existingCategory.CategoryDescription = category.CategoryDescription;
+            existingCategory.IsActive = category.IsActive;
             existingCategory.ParentCategoryId = category.ParentCategoryId;
 
             await _unitOfWork.Categories.UpdateAsync(existingCategory);

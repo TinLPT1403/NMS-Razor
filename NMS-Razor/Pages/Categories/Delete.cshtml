@@ -125,7 +125,7 @@
         <form asp-action="Delete">
             <input type="hidden" asp-for="Category.CategoryId" />
             <input type="submit" value="Confirm Delete" class="btn btn-danger" />
-            <a asp-action="Index" class="btn btn-secondary">Cancel - Back to List</a>
+            <a asp-page="/Categories/Index" class="btn btn-secondary">Cancel - Back to List</a>
         </form>
     </div>
 </div>

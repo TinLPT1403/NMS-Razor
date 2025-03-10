@@ -29,7 +29,6 @@ namespace NMS_Razor.Pages.Categories
         {
             try
             {
-                var category = await _categoryService.GetCategoryByIdAsync(Id);
                 await _categoryService.DeactiveCategoryAsync(Id);
                 return RedirectToPage("/Categories/Index");
 
