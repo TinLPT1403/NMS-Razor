@@ -46,7 +46,7 @@ namespace NMS_Razor.Pages.Categories
 
         public async Task<IActionResult> OnPostEditCategoryAsync( Category category)
         {
-
+            Console.WriteLine("Category: " + category.IsActive);
             if (ModelState.IsValid)
             {
                 await _categoryService.UpdateCategoryAsync(category.CategoryId, category);

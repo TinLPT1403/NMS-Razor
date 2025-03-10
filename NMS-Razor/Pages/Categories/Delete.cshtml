@@ -122,7 +122,7 @@
     </div>
 
     <div class="delete-actions">
-        <form asp-action="Delete">
+        <form method="post">
             <input type="hidden" asp-for="Category.CategoryId" />
             <input type="submit" value="Confirm Delete" class="btn btn-danger" />
             <a asp-page="/Categories/Index" class="btn btn-secondary">Cancel - Back to List</a>
