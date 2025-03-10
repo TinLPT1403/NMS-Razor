@@ -272,7 +272,7 @@
     <h1 class="text-center">News Feed</h1>
 
     <div class="search-bar">
-        <form asp-action="Search" method="get" class="d-flex">
+        <form method="get" asp-action="Search" method="get" class="d-flex">
             <input type="text" name="searchTerm" class="form-control me-2" placeholder="Search by title or headline" />
             <select name="categoryId" class="form-control me-2" asp-items="ViewBag.CategoryId">
                 <option value="">-- Select Category --</option>

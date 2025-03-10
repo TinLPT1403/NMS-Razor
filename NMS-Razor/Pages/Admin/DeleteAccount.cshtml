@@ -175,7 +175,7 @@
             <form asp-route-id="@Model.Account.AccountId" method="post">
                 <input type="hidden" asp-for="Account.AccountId" />
                 <input type="submit" value="Delete Account" class="btn-delete" />
-                <a asp-action="ManageAccounts" class="back-to-list-link">Back to Account List</a>
+                <a asp-page="/Admin/ManageAccounts" class="back-to-list-link">Back to Account List</a>
             </form>
         </div>
     </div>

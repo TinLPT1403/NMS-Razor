@@ -350,8 +350,8 @@
 
                 <div class="account-actions">
                     <a href="#" onclick="openEditModal('@item.AccountId', '@item.AccountName', '@item.AccountEmail', '@item.AccountRole')">Edit</a>
-                    <a asp-action="DetailsAccount" asp-route-id="@item.AccountId">Details</a>
-                    <a asp-action="DeleteAccount" asp-route-id="@item.AccountId">Delete</a>
+                    <a asp-page="/Admin/DetailsAccount" asp-route-id="@item.AccountId">Details</a>
+                    <a asp-page="/Admin/DeleteAccount" asp-route-id="@item.AccountId">Delete</a>
                 </div>
             </div>
         }
