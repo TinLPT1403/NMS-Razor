@@ -38,6 +38,7 @@ namespace BLL.Services
             if (existingCategory == null) throw new KeyNotFoundException("Category not found.");
 
             existingCategory.CategoryName = category.CategoryName;
+            existingCategory.IsActive = category.IsActive;
             existingCategory.CategoryDescription = category.CategoryDescription;
             existingCategory.ParentCategoryId = category.ParentCategoryId;
 

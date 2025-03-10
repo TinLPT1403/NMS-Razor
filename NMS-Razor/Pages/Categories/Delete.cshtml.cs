@@ -29,15 +29,16 @@ namespace NMS_Razor.Pages.Categories
         {
             try
             {
-                var category = await _categoryService.GetCategoryByIdAsync(Id);
-                await _categoryService.DeactiveCategoryAsync(Id);
+                var category = await _categoryService.GetCategoryByIdAsync(Category.CategoryId);
+                await _categoryService.DeactiveCategoryAsync(Category.CategoryId);
+                TempData["Message"] = "Updated Successfully";
                 return RedirectToPage("/Categories/Index");
 
             }
             catch (InvalidOperationException ex)
             {
                 TempData["Error"] = "Category has Articles, cannot delete";
-                return RedirectToPage("/Categories/Delete");
+                return RedirectToPage("/Categories/Index");
             }
         }
     }
